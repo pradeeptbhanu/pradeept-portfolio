@@ -185,3 +185,53 @@ if (form) {
     projectSelect.insertBefore(option, other || null);
   }
 })();
+
+// Mobile navigation
+(function setupMobileNavigation() {
+  const nav = document.querySelector('.site-header nav');
+  const navLinks = document.querySelector('.site-header .nav-links');
+  if (!nav || !navLinks || document.querySelector('.mobile-nav-toggle')) return;
+
+  const toggle = document.createElement('button');
+  toggle.type = 'button';
+  toggle.className = 'mobile-nav-toggle';
+  toggle.setAttribute('aria-label', 'Open navigation menu');
+  toggle.setAttribute('aria-expanded', 'false');
+  toggle.setAttribute('aria-controls', 'primary-navigation');
+  toggle.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16"></path><path d="M4 12h16"></path><path d="M4 18h16"></path></svg>';
+  navLinks.id = 'primary-navigation';
+  nav.insertBefore(toggle, navLinks);
+
+  // Load the mobile-only CSS without changing the existing desktop styles.
+  if (!document.querySelector('link[data-mobile-nav]')) {
+    const stylesheet = document.createElement('link');
+    stylesheet.rel = 'stylesheet';
+    stylesheet.href = './mobile-nav-fix.css';
+    stylesheet.dataset.mobileNav = 'true';
+    document.head.appendChild(stylesheet);
+  }
+
+  const closeMenu = () => {
+    navLinks.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Open navigation menu');
+  };
+
+  toggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', String(isOpen));
+    toggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+  });
+
+  navLinks.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeMenu();
+  });
+
+  document.addEventListener('click', (event) => {
+    if (window.innerWidth <= 650 && !nav.contains(event.target)) closeMenu();
+  });
+})();
