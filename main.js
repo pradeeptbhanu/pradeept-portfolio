@@ -171,6 +171,41 @@ if (form) {
     servicesGrid.parentNode.insertBefore(additionalGrid, servicesGrid.nextElementSibling);
   }
 
+  // Dedicated services page: keep the homepage Services section as the summary and let visitors open the full service details.
+  const servicesNavLink = document.querySelector('.site-header .nav-links a[href="#services"]');
+  if (servicesNavLink) servicesNavLink.setAttribute('href', './services.html');
+
+  // What I can help with: concise client-problem framing without exposing confidential project details.
+  if (!document.getElementById('what-i-can-help')) {
+    const servicesSection = document.getElementById('services');
+    const contactSection = document.getElementById('contact');
+    if (servicesSection && contactSection) {
+      const section = document.createElement('section');
+      section.id = 'what-i-can-help';
+      section.innerHTML = `
+        <div class="container">
+          <div class="kicker reveal visible">Practical Help</div>
+          <h2 class="section-title reveal visible">What I Can Help You With</h2>
+          <p class="section-copy reveal visible">Already have a website or application? Or starting something new? I can help with the technical work behind both.</p>
+          <div class="services-grid">
+            <article class="panel service-card reveal visible"><div class="service-header"><div class="service-icon" aria-hidden="true">🔧</div><h3>Already Have a Website?</h3></div><ul class="service-work-tags"><li>Fix bugs</li><li>Add features</li><li>Improve performance</li><li>Update PHP or WordPress</li><li>Integrate APIs</li><li>Ongoing maintenance</li></ul></article>
+            <article class="panel service-card reveal visible"><div class="service-header"><div class="service-icon" aria-hidden="true">🚀</div><h3>Starting Something New?</h3></div><ul class="service-work-tags"><li>Laravel applications</li><li>Business websites</li><li>WordPress websites</li><li>E-commerce</li><li>Custom backend systems</li><li>Third-party integrations</li></ul></article>
+          </div>
+        </div>`;
+      servicesSection.parentNode.insertBefore(section, contactSection);
+    }
+  }
+
+  // Availability and remote location note.
+  const heroActions = document.querySelector('.hero-actions');
+  if (heroActions && !document.getElementById('availability-note')) {
+    const note = document.createElement('p');
+    note.id = 'availability-note';
+    note.textContent = '🟢 Currently accepting freelance & contract projects · Bhubaneswar, India · Available worldwide · Remote';
+    note.style.cssText = 'margin:1rem 0 0;color:var(--muted);font-size:.9rem;line-height:1.6;';
+    heroActions.parentNode.insertBefore(note, heroActions.nextSibling);
+  }
+
   const contactTitle = document.querySelector('#contact .section-title');
   if (contactTitle) contactTitle.textContent = 'Have a website or application that needs help?';
   const contactCopy = document.querySelector('#contact .section-copy');
@@ -202,7 +237,6 @@ if (form) {
   navLinks.id = 'primary-navigation';
   nav.insertBefore(toggle, navLinks);
 
-  // Load the mobile-only CSS without changing the existing desktop styles.
   if (!document.querySelector('link[data-mobile-nav]')) {
     const stylesheet = document.createElement('link');
     stylesheet.rel = 'stylesheet';
@@ -223,15 +257,7 @@ if (form) {
     toggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
   });
 
-  navLinks.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', closeMenu);
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') closeMenu();
-  });
-
-  document.addEventListener('click', (event) => {
-    if (window.innerWidth <= 650 && !nav.contains(event.target)) closeMenu();
-  });
+  navLinks.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeMenu(); });
+  document.addEventListener('click', (event) => { if (window.innerWidth <= 650 && !nav.contains(event.target)) closeMenu(); });
 })();
