@@ -1,0 +1,57 @@
+name: Restore and fix index mobile navigation
+
+on:
+  push:
+    paths:
+      - '.github/workflows/restore-index-mobile-nav.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Restore index from before mobile-nav commit and add static mobile navigation
+        shell: python
+        run: |
+          import subprocess
+          from pathlib import Path
+
+          subprocess.run(['git', 'checkout', '81aa4eac03d23ae188a328e3bca822a98746c853^', '--', 'index.html'], check=True)
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          s = s.replace(
+              '<link rel="stylesheet" href="./styles.css" />',
+              '<link rel="stylesheet" href="./styles.css" />\n  <link rel="stylesheet" href="./mobile-nav-fix.css" />',
+              1,
+          )
+
+          old_nav = '''      <nav aria-label="Primary navigation">\n        <ul class="nav-links">'''
+          new_nav = '''      <nav aria-label="Primary navigation">\n        <button type="button" class="mobile-nav-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-navigation">\n          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">\n            <path d="M4 6h16"></path>\n            <path d="M4 12h16"></path>\n            <path d="M4 18h16"></path>\n          </svg>\n        </button>\n        <ul class="nav-links" id="primary-navigation">'''
+          if old_nav not in s:
+              raise SystemExit('Primary navigation markup not found')
+          s = s.replace(old_nav, new_nav, 1)
+
+          old_script = '''  <!-- Main Application Script -->\n  <script src="./main.js"></script>'''
+          new_script = '''  <!-- Mobile Navigation -->\n  <script>\n    (() => {\n      const nav = document.querySelector('.site-header nav');\n      const toggle = document.querySelector('.mobile-nav-toggle');\n      const navLinks = document.querySelector('.site-header .nav-links');\n      if (!nav || !toggle || !navLinks) return;\n\n      const closeMenu = () => {\n        navLinks.classList.remove('is-open');\n        toggle.setAttribute('aria-expanded', 'false');\n        toggle.setAttribute('aria-label', 'Open navigation menu');\n      };\n\n      toggle.addEventListener('click', (event) => {\n        event.stopPropagation();\n        const isOpen = navLinks.classList.toggle('is-open');\n        toggle.setAttribute('aria-expanded', String(isOpen));\n        toggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');\n      });\n\n      navLinks.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));\n      document.addEventListener('keydown', (event) => {\n        if (event.key === 'Escape') closeMenu();\n      });\n      document.addEventListener('click', (event) => {\n        if (window.innerWidth <= 650 && !nav.contains(event.target)) closeMenu();\n      });\n    })();\n  </script>\n\n  <!-- Main Application Script -->\n  <script src="./main.js"></script>'''
+          if old_script not in s:
+              raise SystemExit('Main script marker not found')
+          s = s.replace(old_script, new_script, 1)
+          p.write_text(s, encoding='utf-8')
+
+      - name: Commit restored index and remove temporary workflow
+        shell: bash
+        run: |
+          rm -f .github/workflows/restore-index-mobile-nav.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html .github/workflows/restore-index-mobile-nav.yml
+          git commit -m "Fix mobile navigation in index.html"
+          git push
