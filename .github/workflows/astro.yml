@@ -28,12 +28,8 @@ jobs:
         run: npm install
       - name: Build Astro site
         run: npm run build
-      - name: Copy GitHub Pages static assets
-        run: |
-          cp CNAME dist/CNAME
-          mkdir -p dist/sudoku-brain-saga
-          cp sudoku-brain-saga/logo.png dist/sudoku-brain-saga/logo.png
-          cp sudoku-brain-saga/banner.png dist/sudoku-brain-saga/banner.png
+      - name: Preserve custom domain
+        run: cp CNAME dist/CNAME
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact
