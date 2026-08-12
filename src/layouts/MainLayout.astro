@@ -45,8 +45,14 @@ const ogImage = image ? (image.startsWith('http') ? image : new URL(image, Astro
     <main id="main-content"><slot /></main>
     <footer><div class="container"><p>© {new Date().getFullYear()} Pradeept Bhanu · <a href="/">Back to portfolio</a></p></div></footer>
     <script>
-      const observer = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add('visible'); }), { threshold: 0.1 });
-      document.querySelectorAll('.reveal').forEach((el, i) => { if (i >= 2) observer.observe(el); });
+      // Reveal animations are progressive enhancement: content remains visible if JS fails.
+      const revealElements = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } }), { threshold: 0.1 });
+        revealElements.forEach((el) => observer.observe(el));
+      } else {
+        revealElements.forEach((el) => el.classList.add('visible'));
+      }
       const filterButtons = document.querySelectorAll('.filter-btn'); const projectCards = document.querySelectorAll('.project-card'); const searchInput = document.getElementById('projectSearch'); const counter = document.getElementById('projectCounter'); let currentCategory = 'featured'; let searchTerm = '';
       const filterProjects = () => { let visible = 0; projectCards.forEach((card) => { const categories = card.getAttribute('data-category') || ''; const show = (currentCategory === 'all' || categories.includes(currentCategory)) && card.textContent.toLowerCase().includes(searchTerm); card.classList.toggle('hidden', !show); if (show) visible++; }); if (counter) counter.textContent = `Showing ${visible} of ${projectCards.length} projects`; };
       if (projectCards.length) filterProjects(); filterButtons.forEach((button) => button.addEventListener('click', () => { filterButtons.forEach((item) => item.classList.remove('active')); button.classList.add('active'); currentCategory = button.dataset.category || 'all'; filterProjects(); })); searchInput?.addEventListener('input', (event) => { searchTerm = event.target.value.toLowerCase().trim(); filterProjects(); });
