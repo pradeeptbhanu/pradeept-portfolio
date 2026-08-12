@@ -1,0 +1,120 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+
+const projects = [
+  { title: 'Sudoku Brain Saga', category: 'Mobile App', tech: 'Flutter · Android', href: '/sudoku-brain-saga/' },
+  { title: 'AlumNetworks', category: 'Laravel · SaaS', tech: 'Laravel · MySQL · APIs', href: '#projects' },
+  { title: 'TheGardenersHub', category: 'Laravel', tech: 'Laravel · MySQL', href: '#projects' },
+  { title: 'Meerah Jewels', category: 'E-commerce', tech: 'Shopify', href: '#projects' },
+  { title: 'ScrapeYogi', category: 'Automation', tech: 'WordPress · PHP · Python', href: '#projects' },
+  { title: 'XIM University', category: 'WordPress', tech: 'WordPress · PHP', href: '#projects' }
+];
+
+const skills = ['Laravel', 'PHP', 'WordPress', 'WooCommerce', 'MySQL', 'JavaScript', 'jQuery', 'REST APIs', 'Shopify', 'Flutter', 'Git', 'AI-assisted development'];
+---
+<MainLayout>
+  <section class="hero" id="home">
+    <div class="container hero-grid">
+      <div class="hero-content reveal visible">
+        <div class="eyebrow">Available for Freelance & Contract Projects</div>
+        <h1><span class="gradient-text">Laravel & WordPress Developer</span></h1>
+        <p class="lead">I build, fix and maintain business websites and web applications using Laravel, PHP, WordPress and MySQL. 10+ years of professional development experience · Production applications · Business websites · E-commerce</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contact">Discuss Your Project <span aria-hidden="true">→</span></a>
+          <a class="btn btn-secondary" href="#projects">View Featured Work</a>
+        </div>
+        <ul class="socials" aria-label="Contact links">
+          <li><a href="mailto:pradeeptbhanu@gmail.com">📧 pradeeptbhanu@gmail.com</a></li>
+          <li><a href="tel:+917790022707">📞 +91-7790022707</a></li>
+          <li><a href="https://linkedin.com/in/pradeeptbhanu" target="_blank" rel="noopener noreferrer">🔗 LinkedIn</a></li>
+        </ul>
+      </div>
+      <div class="hero-visual reveal visible" aria-hidden="true">
+        <div class="portrait-wrap"><div class="portrait"><div class="avatar-text"><strong>PB</strong><span>Team Lead & Sr. Web Dev</span></div></div></div>
+        <div class="floating-badge badge-laravel">⚡ Laravel</div>
+        <div class="floating-badge badge-wordpress">🌐 WordPress</div>
+        <div class="floating-badge badge-php">🐘 PHP</div>
+        <div class="floating-badge badge-mysql">🐬 MySQL</div>
+        <div class="floating-badge badge-woocommerce">🛒 WooCommerce</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-strip-section" aria-label="Key experience metrics">
+    <div class="container"><div class="trust-strip reveal visible">
+      <div class="trust-item"><div class="trust-icon-wrap">◷</div><div class="trust-content"><span class="trust-number">10+ Years Experience</span><span class="trust-sub"><strong class="trust-tag">Laravel & PHP</strong></span></div></div>
+      <div class="trust-divider" aria-hidden="true"></div>
+      <div class="trust-item"><div class="trust-icon-wrap">⌁</div><div class="trust-content"><span class="trust-number">20+ Projects</span><span class="trust-sub"><strong class="trust-tag">WordPress</strong></span></div></div>
+      <div class="trust-divider" aria-hidden="true"></div>
+      <div class="trust-item"><div class="trust-icon-wrap">▣</div><div class="trust-content"><span class="trust-number">Production Systems</span><span class="trust-sub"><strong class="trust-tag">E-commerce</strong></span></div></div>
+    </div></div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title reveal">Executive Summary</h2>
+      <p class="section-copy reveal">Strategic technical leader focused on scalable backend systems, database optimization, reliable delivery and practical AI-assisted development workflows.</p>
+      <div class="about-grid">
+        <div class="panel about-photo reveal"><div class="photo-card"><div><strong>10+ Years</strong><p>Building enterprise web applications, e-commerce storefronts, custom Laravel systems and multi-site WordPress platforms for international clients.</p></div></div></div>
+        <div class="panel about-content reveal">
+          <div class="kicker">Core Leadership & Engineering</div>
+          <h3>Proven technical leadership with end-to-end delivery expertise</h3>
+          <p class="section-copy" style="margin:.8rem 0 0">Experienced in leading development work, reviewing code, solving complex production issues, optimizing databases and translating business requirements into maintainable software.</p>
+          <ul class="about-points">
+            <li><strong>Development Leadership & Mentorship</strong>Planning work, coordinating developers, reviewing implementations and keeping delivery aligned with business goals.</li>
+            <li><strong>Backend Architecture & Query Optimization</strong>PHP, Laravel, MySQL schema design, indexing, reporting queries, APIs and performance-focused backend engineering.</li>
+            <li><strong>AI-Assisted Engineering</strong>Using modern AI coding and design-to-code tools to accelerate implementation while keeping engineering decisions under human review.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="container">
+      <div class="kicker reveal">Client Solutions & Services</div>
+      <h2 class="section-title reveal">What You Can Hire Me To Do</h2>
+      <p class="section-copy reveal">Specialized technical services for businesses and agencies looking for reliable development, performance optimization, custom features and ongoing maintenance.</p>
+      <div class="services-grid">
+        <article class="panel service-card reveal"><div class="service-header"><div class="service-icon">▱</div><h3>Laravel & PHP Development</h3></div><p class="service-desc">Custom web applications, admin panels, business logic, APIs and backend systems.</p><ul class="service-work-tags"><li>Laravel applications</li><li>Custom PHP</li><li>REST APIs</li><li>Admin dashboards</li><li>Authentication</li><li>Database-driven systems</li></ul></article>
+        <article class="panel service-card reveal"><div class="service-header"><div class="service-icon">◎</div><h3>WordPress Development</h3></div><p class="service-desc">Custom WordPress development for businesses that need more than a basic theme installation.</p><ul class="service-work-tags"><li>Custom functionality</li><li>Theme customization</li><li>PHP development</li><li>Plugin integration</li><li>WooCommerce</li><li>API integrations</li></ul></article>
+        <article class="panel service-card reveal"><div class="service-header"><div class="service-icon">⚒</div><h3>Bug Fixing & Maintenance</h3></div><p class="service-desc">Diagnose broken, slow or difficult-to-maintain websites and applications and implement practical fixes.</p><ul class="service-work-tags"><li>Bug diagnosis</li><li>Performance fixes</li><li>Database optimization</li><li>Legacy maintenance</li><li>Security updates</li><li>Ongoing support</li></ul></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="container">
+      <div class="kicker reveal">Technical Skills</div><h2 class="section-title reveal">Tools I Work With</h2>
+      <div class="skills-grid reveal">{skills.map(skill => <span class="skill-chip">{skill}</span>)}</div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="container">
+      <div class="kicker reveal">Experience</div><h2 class="section-title reveal">Practical engineering experience</h2>
+      <div class="timeline">
+        <article class="panel timeline-item reveal"><div><strong>Development Team Lead</strong><span>AuroInfo LLC</span></div><p>Leading development delivery, architecture decisions, code reviews, database optimization, client communication and junior developer coordination.</p></article>
+        <article class="panel timeline-item reveal"><div><strong>Senior Web Developer</strong><span>PHP · Laravel · WordPress · MySQL</span></div><p>Building and maintaining production web applications, e-commerce systems, custom WordPress platforms and business-critical backend workflows.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="container">
+      <div class="kicker reveal">Selected Work</div><h2 class="section-title reveal">Projects & Case Studies</h2>
+      <p class="section-copy reveal">A selection of production work and current independent product development.</p>
+      <div class="projects-grid">
+        {projects.map(project => <article class="panel project-card reveal"><div class="project-content"><span class="project-type">{project.category}</span><h3>{project.title}</h3><p>{project.tech}</p><a class="project-link" href={project.href}>{project.title === 'Sudoku Brain Saga' ? 'View Case Study →' : 'Project details →'}</a></div></article>)}
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="container"><div class="kicker reveal">Education</div><h2 class="section-title reveal">Continuous practical learning</h2><div class="panel reveal education-card"><h3>Professional Development</h3><p class="section-copy" style="margin:0">My development approach is strongly practice-driven: production experience, technical problem solving, modern tooling and continuous learning across backend, web and mobile technologies.</p></div></div>
+  </section>
+
+  <section id="contact">
+    <div class="container"><div class="kicker reveal">Let's Work Together</div><h2 class="section-title reveal">Have a project in mind?</h2><p class="section-copy reveal">If you need a Laravel developer, WordPress specialist, backend engineer or someone to take ownership of an existing web application, let's discuss it.</p><div class="contact-actions reveal"><a class="btn btn-primary" href="mailto:pradeeptbhanu@gmail.com">Email Me</a><a class="btn btn-secondary" href="https://linkedin.com/in/pradeeptbhanu" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a></div></div>
+  </section>
+</MainLayout>
