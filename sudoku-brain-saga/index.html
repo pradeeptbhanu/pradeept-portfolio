@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sudoku Brain Saga — a Flutter Sudoku puzzle game focused on classic Sudoku, daily challenges, progress tracking, achievements, and brain-training gameplay." />
+  <meta name="theme-color" content="#09010f" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Sudoku Brain Saga | Flutter Sudoku Game" />
+  <meta property="og:description" content="A modern Sudoku experience focused on classic puzzles, daily challenges, progress tracking and brain-training gameplay." />
+  <meta property="og:url" content="https://pradeeptbhanu.com/sudoku-brain-saga/" />
+  <meta property="og:image" content="https://pradeeptbhanu.com/sudoku-brain-saga/banner.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Sudoku Brain Saga | Flutter Sudoku Game" />
+  <meta name="twitter:description" content="A modern Sudoku experience built with Flutter for Android." />
+  <meta name="twitter:image" content="https://pradeeptbhanu.com/sudoku-brain-saga/banner.png" />
+  <title>Sudoku Brain Saga | Flutter Sudoku Game | Pradeept Bhanu</title>
+  <link rel="icon" href="./logo.png" type="image/png" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../mobile-nav-fix.css" />
+  <style>
+    .game-hero { padding: 7rem 0 5rem; position: relative; overflow: hidden; }
+    .game-hero::before { content:""; position:absolute; width:620px; height:620px; border-radius:50%; background:radial-gradient(circle, rgba(52,105,255,.28), transparent 68%); top:-260px; right:-160px; pointer-events:none; }
+    .game-grid { display:grid; grid-template-columns:1.08fr .92fr; gap:4rem; align-items:center; position:relative; z-index:1; }
+    .game-kicker { display:inline-flex; padding:.45rem .8rem; border:1px solid rgba(112,137,255,.3); border-radius:999px; color:#9fb2ff; background:rgba(80,100,255,.08); font-weight:700; font-size:.85rem; }
+    .game-title { font-size:clamp(3rem,7vw,5.8rem); line-height:.92; letter-spacing:-.055em; margin:1.2rem 0 1.4rem; }
+    .game-title span { display:block; background:linear-gradient(135deg,#ffffff 15%,#8eb0ff 55%,#ffb52e 100%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .game-lead { max-width:700px; font-size:1.15rem; color:var(--color-muted); line-height:1.8; }
+    .game-actions { display:flex; gap:.8rem; flex-wrap:wrap; margin-top:1.8rem; }
+    .game-visual { min-height:480px; border:1px solid rgba(115,137,255,.25); border-radius:32px; background:linear-gradient(145deg,#061b65,#071039 70%); box-shadow:0 30px 90px rgba(0,0,0,.35); display:flex; align-items:center; justify-content:center; padding:2rem; position:relative; overflow:hidden; }
+    .game-visual::before { content:""; position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px); background-size:42px 42px; transform:rotate(-8deg) scale(1.3); }
+    .game-logo { width:min(430px,88%); height:auto; display:block; position:relative; z-index:1; border-radius:24%; filter:drop-shadow(0 28px 45px rgba(0,0,0,.42)) drop-shadow(0 0 45px rgba(31,100,255,.2)); transition:transform .35s ease, filter .35s ease; }
+    .game-logo:hover { transform:translateY(-6px) scale(1.015); filter:drop-shadow(0 34px 55px rgba(0,0,0,.48)) drop-shadow(0 0 58px rgba(31,100,255,.3)); }
+    .banner-section { padding-top:0; }
+    .game-banner-wrap { margin-top:2.5rem; padding:.75rem; border:1px solid rgba(115,137,255,.25); border-radius:24px; background:linear-gradient(145deg,rgba(9,25,91,.9),rgba(7,10,30,.95)); box-shadow:0 30px 90px rgba(0,0,0,.35); overflow:hidden; }
+    .game-banner { display:block; width:100%; height:auto; border-radius:16px; }
+    .banner-caption { margin:.9rem .4rem .1rem; color:var(--color-muted); font-size:.85rem; text-align:center; }
+    .feature-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-top:2.5rem; }
+    .game-feature { padding:1.35rem; min-height:150px; }
+    .feature-icon { font-size:1.8rem; margin-bottom:.7rem; }.game-feature h3{margin:0 0 .4rem;font-size:1.05rem}.game-feature p{margin:0;color:var(--color-muted);font-size:.9rem;line-height:1.55}
+    .details-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; margin-top:2rem; }
+    .detail-card { padding:1.6rem; }.detail-card h3{margin-top:0}.detail-card ul{margin:.8rem 0 0;padding-left:1.2rem;color:var(--color-muted)}.detail-card li{margin:.4rem 0}
+    .architecture { margin-top:2rem; padding:1.6rem; overflow:auto; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; color:#b9c9ff; background:#070b1a; border:1px solid var(--color-border); border-radius:16px; }
+    .privacy-note { margin-top:2rem; padding:1.2rem 1.4rem; border-left:3px solid #6c83ff; background:rgba(108,131,255,.08); color:var(--color-muted); }
+    @media(max-width:900px){.game-grid,.details-grid{grid-template-columns:1fr}.feature-grid{grid-template-columns:repeat(2,1fr)}.game-visual{min-height:390px}}
+    @media(max-width:560px){.game-hero{padding:5rem 0 3rem}.feature-grid{grid-template-columns:1fr}.game-title{font-size:3.3rem}.game-visual{min-height:340px;padding:1rem;border-radius:22px}.game-logo{width:min(340px,92%)}}
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../" class="brand" aria-label="Pradeept Bhanu Sabat home">
+        <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span><span>Pradeept Bhanu&lt;/&gt;</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <ul class="nav-links">
+          <li><a href="../#contact" class="nav-cta">Let's Talk</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="game-hero">
+      <div class="container game-grid">
+        <div class="reveal visible">
+          <span class="game-kicker">Flutter · Android · Google Play Games · AdMob</span>
+          <h1 class="game-title"><span>Sudoku Brain</span><span>Saga</span></h1>
+          <p class="game-lead">A modern Sudoku experience built around classic puzzle solving, daily challenges, progress tracking and brain-training motivation. Designed to feel focused, polished and rewarding without losing the simplicity of Sudoku.</p>
+          <div class="game-actions">
+            <a class="btn btn-secondary" href="./privacy-policy.html">Privacy Policy</a>
+          </div>
+        </div>
+        <div class="game-visual reveal visible" aria-label="Sudoku Brain Saga game logo">
+          <img class="game-logo" src="./logo.png" alt="Sudoku Brain Saga game logo" width="512" height="512" fetchpriority="high" decoding="async" />
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="kicker reveal">Game Concept</div>
+        <h2 class="section-title reveal">More than a Sudoku board</h2>
+        <p class="section-copy reveal">The product direction combines familiar Sudoku gameplay with lightweight progression and player motivation features.</p>
+        <div class="feature-grid">
+          <article class="panel game-feature reveal"><div class="feature-icon">🧩</div><h3>Classic Sudoku</h3><p>Clean, focused 9×9 puzzle gameplay with rule-break feedback and an optional timer.</p></article>
+          <article class="panel game-feature reveal"><div class="feature-icon">🧠</div><h3>Brain Focus</h3><p>A game identity centered around concentration, logical thinking and consistent practice.</p></article>
+          <article class="panel game-feature reveal"><div class="feature-icon">📈</div><h3>Track Progress</h3><p>Progression-oriented features help players understand their activity and improvement over time.</p></article>
+          <article class="panel game-feature reveal"><div class="feature-icon">🏆</div><h3>Daily Challenges</h3><p>Daily gameplay creates a simple reason to return and build a regular Sudoku habit.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="banner-section">
+      <div class="container">
+        <div class="kicker reveal">Game Preview</div>
+        <h2 class="section-title reveal">The Sudoku Brain Saga experience</h2>
+        <p class="section-copy reveal">The visual identity brings together Sudoku, brain-training motivation, progress and daily challenges in one game concept.</p>
+        <div class="game-banner-wrap reveal">
+          <img class="game-banner" src="./banner.png" alt="Sudoku Brain Saga promotional game banner" width="1792" height="1024" loading="lazy" decoding="async" />
+          <p class="banner-caption">Sudoku Brain Saga · Solve puzzles, sharpen your mind.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="kicker reveal">Engineering</div>
+        <h2 class="section-title reveal">Built as a real mobile product</h2>
+        <div class="details-grid">
+          <article class="panel detail-card reveal"><h3>Technology Stack</h3><ul><li>Flutter / Dart</li><li>Android application</li><li>Google Play Games Services</li><li>Google Mobile Ads (AdMob)</li><li>Local application storage</li><li>Riverpod-based application state</li></ul></article>
+          <article class="panel detail-card reveal"><h3>Player Experience</h3><ul><li>Settings and persistent game preferences</li><li>Google Play Games connection state</li><li>Player profile integration</li><li>Achievements and leaderboard-ready architecture</li><li>Daily challenge and progression concepts</li><li>Privacy policy accessible from the game</li></ul></article>
+        </div>
+        <div class="architecture reveal">App startup → authentication state → game/progression state → local persistence → Google Play Games / advertising services</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="kicker reveal">My Role</div>
+        <h2 class="section-title reveal">From concept to Play Store preparation</h2>
+        <div class="details-grid">
+          <article class="panel detail-card reveal"><h3>Product & UI</h3><p class="section-copy" style="margin:0">Defined the product structure, game screens, settings experience, store-facing visual direction and supporting web content.</p></article>
+          <article class="panel detail-card reveal"><h3>Implementation</h3><p class="section-copy" style="margin:0">Developing the Flutter application, integrating Google Play Games, preparing advertising/privacy requirements and shaping the release workflow.</p></article>
+        </div>
+        <div class="privacy-note reveal">This page is a portfolio overview. For the app's actual data practices and third-party services, see the <a href="./privacy-policy.html">Sudoku Brain Saga Privacy Policy</a>.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container"><p>© 2026 Pradeept Bhanu · <a href="../">Back to portfolio</a> · <a href="./privacy-policy.html">Privacy Policy</a></p></div>
+  </footer>
+  <script src="../main.js"></script>
+</body>
+</html>
