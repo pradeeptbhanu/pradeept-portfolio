@@ -1,0 +1,101 @@
+---
+import '../../styles.css';
+import '../../mobile-nav-fix.css';
+
+const { title = 'Pradeept Bhanu Sabat | Development Team Lead & Senior Web Developer', description = 'Pradeept Bhanu Sabat — Development Team Lead & Senior Web Developer with 10+ years experience in Laravel, WordPress, PHP, WooCommerce, Shopify, MySQL, and AI-assisted workflows.', image = '/sudoku-brain-saga/banner.png' } = Astro.props;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : Astro.url.toString();
+const ogImage = image.startsWith('http') ? image : new URL(image, Astro.site ?? Astro.url).toString();
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#09010f" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate icon" href="/favicon.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+    <header class="site-header">
+      <div class="container nav">
+        <a href="/" class="brand" aria-label="Pradeept Bhanu Sabat home"><span class="brand-mark" aria-hidden="true">&lt;/&gt;</span><span>Pradeept Bhanu&lt;/&gt;</span></a>
+        <nav aria-label="Primary navigation">
+          <button class="mobile-nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-navigation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16"></path><path d="M4 12h16"></path><path d="M4 18h16"></path></svg></button>
+          <ul class="nav-links" id="primary-navigation">
+            <li><a href="/#about">About</a></li><li><a href="/#services">Services</a></li><li><a href="/#skills">Skills</a></li><li><a href="/#experience">Experience</a></li><li><a href="/#projects">Projects</a></li><li><a href="/#education">Education</a></li><li><a href="/#contact" class="nav-cta">Let's Talk</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main id="main-content"><slot /></main>
+    <footer><div class="container"><p>© {new Date().getFullYear()} Pradeept Bhanu · <a href="/">Back to portfolio</a></p></div></footer>
+    <script>
+      const observer = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add('visible'); }), { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach((el, i) => { if (i >= 2) observer.observe(el); });
+
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      const projectCards = document.querySelectorAll('.project-card');
+      const searchInput = document.getElementById('projectSearch');
+      const counter = document.getElementById('projectCounter');
+      let currentCategory = 'featured';
+      let searchTerm = '';
+      const filterProjects = () => {
+        let visible = 0;
+        projectCards.forEach((card) => {
+          const categories = card.getAttribute('data-category') || '';
+          const matchesCategory = currentCategory === 'all' || categories.includes(currentCategory);
+          const matchesSearch = card.textContent.toLowerCase().includes(searchTerm);
+          const show = matchesCategory && matchesSearch;
+          card.classList.toggle('hidden', !show);
+          if (show) visible++;
+        });
+        if (counter) counter.textContent = `Showing ${visible} of ${projectCards.length} projects`;
+      };
+      if (projectCards.length) filterProjects();
+      filterButtons.forEach((button) => button.addEventListener('click', () => { filterButtons.forEach((item) => item.classList.remove('active')); button.classList.add('active'); currentCategory = button.dataset.category || 'all'; filterProjects(); }));
+      searchInput?.addEventListener('input', (event) => { searchTerm = event.target.value.toLowerCase().trim(); filterProjects(); });
+
+      const form = document.getElementById('form');
+      form?.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const submit = form.querySelector('button[type="submit"]');
+        const status = document.getElementById('form-status');
+        const original = submit.innerHTML;
+        submit.disabled = true; submit.textContent = 'Sending Inquiry...';
+        try {
+          const response = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+          const data = await response.json();
+          if (!response.ok || !data.success) throw new Error(data.message || 'Unable to send message.');
+          status.textContent = '✓ Thank you! Your project inquiry has been sent successfully. I will get back to you shortly.';
+          status.className = 'form-success'; form.reset();
+        } catch (error) {
+          status.textContent = `⚠️ ${error.message || 'Something went wrong. Please try again.'}`;
+          status.className = 'form-error';
+        } finally { submit.innerHTML = original; submit.disabled = false; }
+      });
+
+      const toggle = document.querySelector('.mobile-nav-toggle');
+      const navLinks = document.querySelector('.nav-links');
+      const closeMenu = () => { navLinks?.classList.remove('is-open'); toggle?.setAttribute('aria-expanded', 'false'); };
+      toggle?.addEventListener('click', () => { const open = navLinks.classList.toggle('is-open'); toggle.setAttribute('aria-expanded', String(open)); });
+      navLinks?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+      document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeMenu(); });
+    </script>
+  </body>
+</html>
