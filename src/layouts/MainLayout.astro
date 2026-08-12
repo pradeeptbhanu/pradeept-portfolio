@@ -1,0 +1,62 @@
+---
+const { title = 'Pradeept Bhanu Sabat | Development Team Lead & Senior Web Developer', description = 'Pradeept Bhanu Sabat — Development Team Lead & Senior Web Developer with 10+ years experience in Laravel, WordPress, PHP, WooCommerce, Shopify, MySQL, and AI-assisted workflows.', image = '/sudoku-brain-saga/banner.png' } = Astro.props;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString() : Astro.url.toString();
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#09010f" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(image, Astro.site ?? Astro.url).toString()} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image, Astro.site ?? Astro.url).toString()} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate icon" href="/favicon.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/mobile-nav-fix.css" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+    <header class="site-header">
+      <div class="container nav">
+        <a href="/" class="brand" aria-label="Pradeept Bhanu Sabat home">
+          <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
+          <span>Pradeept Bhanu&lt;/&gt;</span>
+        </a>
+        <nav aria-label="Primary navigation">
+          <ul class="nav-links">
+            <li><a href="/#about">About</a></li>
+            <li><a href="/#services">Services</a></li>
+            <li><a href="/#skills">Skills</a></li>
+            <li><a href="/#experience">Experience</a></li>
+            <li><a href="/#projects">Projects</a></li>
+            <li><a href="/#education">Education</a></li>
+            <li><a href="/#contact" class="nav-cta">Let's Talk</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main id="main-content">
+      <slot />
+    </main>
+    <footer>
+      <div class="container">
+        <p>© {new Date().getFullYear()} Pradeept Bhanu · <a href="/">Back to portfolio</a></p>
+      </div>
+    </footer>
+    <script src="/main.js"></script>
+  </body>
+</html>
