@@ -1,0 +1,62 @@
+---
+import MainLayout from '../../../layouts/MainLayout.astro';
+---
+<MainLayout title="Privacy Policy — Snapsemble: Picture Puzzle" description="How Snapsemble: Picture Puzzle handles local progress, preferences, and privacy.">
+  <section style="padding:6rem 0 2rem">
+    <div class="container">
+      <div class="kicker">Snapsemble: Picture Puzzle</div>
+      <h1 class="section-title">Privacy Policy</h1>
+      <p class="section-copy">Last updated: September 25, 2026</p>
+    </div>
+  </section>
+  <section style="padding-top:1rem">
+    <div class="container">
+      <article class="panel privacy-policy">
+        <p>Snapsemble: Picture Puzzle is developed by Pradeept Bhanu. This policy explains how the current version handles information when you play the game or visit this privacy page.</p>
+
+        <h2>Information used by the game</h2>
+        <p>The game saves the IDs of completed puzzles and your haptic-feedback preference locally on your device. In the web version, these settings are saved in browser storage for the site where you play. They let the game display completion checkmarks, calculate your profile's completion percentage and category progress, and remember whether vibration is enabled.</p>
+        <p>Piece positions, move counts, and play time are used during an attempt and to show the completion report. The current version does not persist unfinished boards, historical move totals, or historical completion times. The game does not send your puzzle progress or preferences to the developer.</p>
+
+        <h2>Accounts, permissions, advertising, and analytics</h2>
+        <p>No account is required. The current version does not include account sign-in, Google Play Games integration, cloud saving, advertising SDKs, analytics SDKs, or automatic crash-reporting services. It does not ask for your name, email address, contacts, precise location, camera, microphone, or personal photo library. Puzzle artwork is included with the game.</p>
+
+        <h2>Web access and external services</h2>
+        <p>When you play a web-hosted version or open this policy, your browser makes network requests to deliver the site and its files. Hosting providers may process technical information such as your IP address, request time, requested URL, and browser information to deliver and secure those requests. These requests are separate from the game's locally stored progress.</p>
+        <p>This policy website is hosted on GitHub Pages and its shared page layout loads fonts from Google Fonts. Those services receive the network information needed to serve the page or fonts. See the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub Privacy Statement</a> and <a href="https://policies.google.com/privacy">Google Privacy Policy</a> for their practices. Opening an external link subjects that visit to the destination's privacy practices.</p>
+
+        <h2>Support messages</h2>
+        <p>If you choose to email the developer, the message and contact details you provide are used to respond to your request. Please do not send passwords or unnecessary sensitive information. Support correspondence is retained only as needed to handle the request and any applicable recordkeeping obligations. You may contact us to request deletion of correspondence.</p>
+
+        <h2>Sharing and sale</h2>
+        <p>The game does not sell or share locally stored puzzle progress or preferences with advertisers or data brokers. Hosting, font, and email providers process information needed to provide their respective services as described above.</p>
+
+        <h2>Retention and deletion</h2>
+        <p>Local progress and preferences remain until the app or browser data is cleared. On the web, remove site data using your browser's settings. On devices with an installed app, clear its storage using device settings. Uninstalling an app normally removes local data, but operating-system backups or restores may retain or restore a copy; manage those through your device's backup settings.</p>
+        <p>Clearing local data removes completion checkmarks and resets preferences. The developer cannot recover that progress because the game does not upload it. There is no game account to delete. Technical data held by external providers is retained under their own policies.</p>
+
+        <h2>Security</h2>
+        <p>Local information is protected by your device and browser controls. This privacy page uses HTTPS. No storage or transmission method is completely secure; keep your device and browser updated and use their security controls.</p>
+
+        <h2>Children's privacy</h2>
+        <p>The current game does not ask players, including children, to submit personal details, create an account, or use chat features. If you believe a child has provided personal information to us through a support message, contact us so we can review and remove it where appropriate.</p>
+
+        <h2>Changes to this policy</h2>
+        <p>If the game's data practices change, including the addition of accounts, online features, advertising, or analytics, this policy will be updated to explain them. The date above identifies the most recent revision.</p>
+
+        <h2>Contact</h2>
+        <p><strong>Developer:</strong> Pradeept Bhanu<br />
+          <strong>Email:</strong> <a href="mailto:pradeeptbhanu@gmail.com">pradeeptbhanu@gmail.com</a><br />
+          <strong>Website:</strong> <a href="https://pradeeptbhanu.com/">pradeeptbhanu.com</a>
+        </p>
+      </article>
+    </div>
+  </section>
+</MainLayout>
+
+<style>
+  .privacy-policy { padding: clamp(1.25rem, 4vw, 2.5rem); line-height: 1.8; overflow-wrap: anywhere; }
+  .privacy-policy h2 { margin: 1.75rem 0 0.65rem; line-height: 1.35; }
+  .privacy-policy p { margin-bottom: 1rem; }
+  .privacy-policy a { text-decoration: underline; text-underline-offset: 0.2em; }
+</style>
